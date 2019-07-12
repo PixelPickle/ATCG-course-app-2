@@ -1,16 +1,39 @@
 <div class="row">
   <div class="col-xs-12">
-    <p>Add new Servers or blueprints!</p>
+    <p appBasicHighlight>Add new Servers or blueprints!</p>
+    <p appBetterHighlight [defaultColor]="'green'" [highlightColor]="'darkgreen'">Add new Servers or blueprints!</p>
     <label>Server Name</label>
-    <input type="text" class="form-control" [(ngModel)]="newServerName">
+<!--    <input type="text" class="form-control" [(ngModel)]="newServerName">-->
+    <input type="text" class="form-control" #serverNameInput>
     <label>Server Content</label>
-    <input type="text" class="form-control" [(ngModel)]="newServerContent">
+<!--    <input type="text" class="form-control" [(ngModel)]="newServerContent">-->
+    <input type="text" class="form-control" #serverContentInput>
     <br>
-    <button
-      class="btn btn-primary"
-      (click)="onAddServer()">Add Server</button>
-    <button
-      class="btn btn-primary"
-      (click)="onAddBlueprint()">Add Server Blueprint</button>
+<!--    <button-->
+<!--      *appUnless="serversRunning"-->
+<!--      class="btn btn-primary"-->
+<!--      (click)="onAddServer(serverNameInput)">Add Server</button>-->
+<!--    <button-->
+<!--      class="btn btn-primary"-->
+<!--      (click)="onAddBlueprint(serverNameInput)">Add Server Blueprint</button>-->
+    <div [ngSwitch]="serversRunning">
+      <button
+        *ngSwitchCase="false"
+        class="btn btn-primary"
+        (click)="onAddServer(serverNameInput)">Add Server</button>
+      <button
+        *ngSwitchCase="false"
+        class="btn btn-success"
+        (click)="serversRunning=true">Start Servers</button>
+      <button
+        *ngSwitchCase="true"
+        class="btn btn-primary"
+        (click)="onAddBlueprint(serverNameInput)">Add Server Blueprint</button>
+      <button
+        *ngSwitchCase="true"
+        class="btn btn-danger"
+        (click)="serversRunning=false">Stop Servers</button>
+    </div>
+
   </div>
 </div>
